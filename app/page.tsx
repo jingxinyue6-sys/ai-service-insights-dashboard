@@ -1,44 +1,35 @@
 'use client';
 
-import { useMemo, useState } from 'react';
-import { ArrowDownRight, ArrowUpRight, BarChart3, Bot, CalendarDays, CheckCircle2, ChevronDown, Clock3, Gauge, MessageCircleMore, RefreshCw, Search, ShieldCheck, Sparkles, Users } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { BarChart3, BookOpen, Bot, CalendarDays, CheckCircle2, Eye, Gauge, Grid2X2, MessageSquare, RefreshCw, ShieldCheck, Users } from 'lucide-react';
 
-const trend = [32, 38, 35, 49, 44, 61, 57, 72, 65, 82, 88, 96, 91, 108];
-const categories = [
-  { name: '数据查询', count: 286, share: 42, delta: '+5.4%' },
-  { name: '指标口径', count: 151, share: 22, delta: '+2.1%' },
-  { name: '分析建议', count: 109, share: 16, delta: '+1.6%' },
-  { name: '工具使用', count: 82, share: 12, delta: '-0.8%' },
-  { name: '其他', count: 52, share: 8, delta: '-1.2%' },
-];
-const people = [
-  ['林小雨', '数据产品', 48, '#6256e8'], ['周明远', '业务分析', 41, '#0ea5a4'],
-  ['陈子安', '搜索策略', 36, '#ec7f56'], ['赵晚晴', '用户研究', 31, '#d59b20'],
-];
-const questions = [
-  ['如何统一不同看板的日活口径？', '林小雨', '指标口径', '2 分钟前'],
-  ['帮我拆解近 7 天转化率波动原因', '周明远', '分析建议', '8 分钟前'],
-  ['搜索词分布适合用哪个数据集？', '陈子安', '数据查询', '19 分钟前'],
-  ['实验报告中的置信区间怎么解读？', '赵晚晴', '工具使用', '34 分钟前'],
-];
+const nav = [['能力图谱', Grid2X2], ['可观测', Eye], ['知识库', BookOpen], ['Session', MessageSquare], ['监控', Gauge], ['周总结', CalendarDays]] as const;
+const types = [['问数', 322, '47.4%', '+5.8pp'], ['取数', 196, '28.8%', '-3.2pp'], ['系统运维', 54, '7.9%', '+1.1pp'], ['分析', 47, '6.9%', '+0.8pp'], ['闲聊', 31, '4.6%', '-2.1pp'], ['纠错', 18, '2.6%', '+0.9pp'], ['项目管理', 8, '1.2%', '+0.2pp'], ['需求澄清', 4, '0.6%', '-0.4pp']];
+const people = [['林小雨', 62], ['周明远', 54], ['陈子安', 47], ['赵晚晴', 39], ['孙思齐', 35], ['何嘉树', 31], ['高书宁', 28], ['沈予安', 25], ['许清和', 22], ['唐若宁', 19]];
+const chats = [['近期业务看板的转化率口径是否有更新？', '林小雨', '需求澄清'], ['我想批量查看多组搜索词的流量分布，有推荐的分析方法吗？', '周明远', '问数'], ['如何获取近 7 日日均访问量和转化指标？', '陈子安', '取数'], ['帮我解读一下这组实验数据的异常波动', '赵晚晴', '分析'], ['这个指标在不同数据源中应该如何对齐？', '孙思齐', '问数']];
 
-function Sparkline() {
-  const points = trend.map((value, index) => `${(index / (trend.length - 1)) * 100},${50 - value * 0.34}`).join(' ');
-  return <svg viewBox="0 0 100 54" preserveAspectRatio="none" className="sparkline" aria-label="近两周问答量走势"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stopColor="#6256e8" stopOpacity=".28" /><stop offset="1" stopColor="#6256e8" stopOpacity="0" /></linearGradient></defs><path d={`M ${points} L 100,54 L 0,54 Z`} fill="url(#area)" /><polyline points={points} fill="none" stroke="#6256e8" strokeWidth="2" vectorEffect="non-scaling-stroke" /></svg>;
-}
+function MiniChart({ color = '#5d58dd' }: { color?: string }) { return <svg viewBox="0 0 160 60" className="mini"><path d="M2 42 C25 37 22 16 48 18 S75 49 97 33 S123 7 139 28 S148 53 158 55" fill="none" stroke={color} strokeWidth="3" strokeLinecap="round"/><path d="M2 42 C25 37 22 16 48 18 S75 49 97 33 S123 7 139 28 S148 53 158 55 L158 60 L2 60Z" fill={color} opacity=".08"/></svg> }
 
 export default function Home() {
-  const [range, setRange] = useState<'7d' | '30d'>('7d');
-  const [query, setQuery] = useState('');
-  const filtered = useMemo(() => questions.filter(([question, name, tag]) => `${question}${name}${tag}`.includes(query)), [query]);
-  return <main className="app-shell">
-    <aside className="sidebar"><div className="brand"><span className="brand-mark"><Sparkles size={18} /></span><span>洞察台</span></div><nav aria-label="主导航"><a className="nav-item active" href="#overview"><Gauge size={18} />总览</a><a className="nav-item" href="#questions"><MessageCircleMore size={18} />问答分析</a><a className="nav-item" href="#users"><Users size={18} />用户洞察</a><a className="nav-item" href="#quality"><BarChart3 size={18} />质量追踪</a></nav><div className="privacy-note"><ShieldCheck size={18} /><div><strong>隐私安全</strong><span>当前为脱敏演示数据</span></div></div></aside>
-    <section className="workspace"><header className="topbar"><div><p className="eyebrow">AI SERVICE ANALYTICS</p><h1>服务洞察总览</h1></div><div className="top-actions"><div className="range-switch" aria-label="时间范围"><button className={range === '7d' ? 'selected' : ''} onClick={() => setRange('7d')}>7 天</button><button className={range === '30d' ? 'selected' : ''} onClick={() => setRange('30d')}>30 天</button></div><Button variant="outline" size="lg"><CalendarDays /> 8月28日 — 9月3日 <ChevronDown /></Button><Button size="lg"><RefreshCw /> 刷新数据</Button></div></header>
-      <div className="status-row"><span><i />数据已更新 · 今日 10:32</span><span className="safe"><ShieldCheck size={14} /> 仅展示合成数据</span></div>
-      <section className="metrics" id="overview" aria-label="核心指标"><article className="metric featured"><div className="metric-icon"><Users /></div><p>周覆盖用户</p><div className="metric-value">150<span>+</span></div><small><b><ArrowUpRight /> 18.6%</b> 较上周</small></article><article className="metric"><div className="metric-icon mint"><MessageCircleMore /></div><p>周问答量</p><div className="metric-value">680<span>+</span></div><small><b><ArrowUpRight /> 12.4%</b> 较上周</small></article><article className="metric"><div className="metric-icon coral"><CheckCircle2 /></div><p>有据回答率</p><div className="metric-value">84.2<span>%</span></div><small><b><ArrowUpRight /> 3.1%</b> 较上周</small></article><article className="metric"><div className="metric-icon gold"><Clock3 /></div><p>平均响应时间</p><div className="metric-value">8.6<span>s</span></div><small><b className="down"><ArrowDownRight /> 1.8s</b> 较上周</small></article></section>
-      <section className="content-grid"><article className="panel trend-panel"><div className="panel-head"><div><p className="kicker">使用趋势</p><h2>每日问答量</h2></div><span className="pill">日均 97 次</span></div><Sparkline /><div className="chart-axis"><span>8/21</span><span>8/24</span><span>8/27</span><span>8/30</span><span>9/03</span></div></article><article className="panel category-panel"><div className="panel-head"><div><p className="kicker">需求结构</p><h2>问题类型分布</h2></div><button className="text-button">查看详情</button></div><div className="category-list">{categories.map((item) => <div className="category" key={item.name}><div className="category-line"><span>{item.name}<em>{item.count}</em></span><b className={item.delta.startsWith('-') ? 'negative' : ''}>{item.delta}</b></div><div className="track"><i style={{ width: `${item.share}%` }} /></div></div>)}</div></article></section>
-      <section className="content-grid lower"><article className="panel" id="users"><div className="panel-head"><div><p className="kicker">活跃用户</p><h2>本周互动 Top 4</h2></div><span className="pill subtle">姓名已替换</span></div><div className="people-list">{people.map(([name, role, count, color], index) => <div className="person" key={String(name)}><span className="rank">0{index + 1}</span><span className="avatar" style={{ background: String(color) }}>{String(name).slice(-1)}</span><div><strong>{name}</strong><small>{role}</small></div><b>{count} 次</b></div>)}</div></article><article className="panel questions-panel" id="questions"><div className="panel-head"><div><p className="kicker">最新动态</p><h2>实时问答</h2></div><label className="search"><Search size={15} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="搜索合成记录" /></label></div><div className="question-list">{filtered.map(([question, name, tag, time]) => <div className="question" key={question}><span className="bot-icon"><Bot size={16} /></span><div><strong>{question}</strong><small>{name} · {time}</small></div><span className="tag">{tag}</span></div>)}{filtered.length === 0 && <p className="empty">没有匹配的演示记录</p>}</div></article></section>
+  const [range, setRange] = useState('全部');
+  const [identity, setIdentity] = useState('非管理员');
+  return <main className="shell">
+    <aside className="rail"><div className="avatar">AI</div>{nav.map(([label, Icon]) => <a href={label === 'Session' ? '#sessions' : '#'} className={label === 'Session' ? 'active' : ''} key={label}><Icon/><span>{label}</span></a>)}<i className="online"/></aside>
+    <section className="page" id="sessions">
+      <header><div className="title-icon"><MessageSquare/></div><h1>Session 分析</h1><span className="live"><i/>实时</span><button><RefreshCw/>刷新</button><button><Users/>显示名</button><small>同步：刚刚</small></header>
+      <section className="filter-card"><div className="filter-block"><label>日期</label><button className="date"><CalendarDays/>2026‑08‑28 至 2026‑09‑03</button></div><div className="filter-block"><label>类型</label><div>{['全部','私聊','群聊','定时触发'].map(x => <button className={range===x?'selected':''} onClick={()=>setRange(x)} key={x}>{x}</button>)}</div></div><div className="filter-block identity"><label>身份</label><div>{['非管理员','全部','管理员'].map(x => <button className={identity===x?'selected':''} onClick={()=>setIdentity(x)} key={x}>{x}</button>)}</div></div><button className="reset">回到默认（近7天）</button></section>
+      <SectionTitle part="Part 1" title="核心指标" />
+      <section className="metric-grid"><Metric icon={<Users/>} title="来访人数" en="Unique Visitors" value="150+" suffix="人" note="匿名用户标识去重" color="#4d64d9"/><Metric icon={<MessageSquare/>} title="来访次数" en="Total Sessions" value="680+" suffix="次" note="群聊 21% / 私聊 79%" color="#7651d8"/><Metric icon={<CheckCircle2/>} title="有据回答率" en="Grounded Answer Rate" value="84.2%" note="高、中可信回答加权" color="#3e9a79"/><Metric icon={<ShieldCheck/>} title="综合质量分" en="Overall Quality Score" value="78.6%" note="来自脱敏演示标注" color="#dc7637"/></section>
+      <section className="type-card"><h2>需求类型分布 <small>Question Type Stats</small></h2><div className="type-grid">{types.map(([name,count,share,delta])=><div className="type-row" key={name}><span>{name}</span><b>{count}</b><div className="bar"><i style={{width:share}}/></div><em>{share}</em><small className={String(delta).startsWith('-')?'down':''}>{delta}</small></div>)}</div></section>
+      <SectionTitle part="Part 2" title="🏆 访问排行 Top10" />
+      <section className="ranking">{people.map(([name,count],i)=><div key={name}><b className={i<3?'medal':''}>{i+1}</b><span className="person-avatar">{String(name).slice(-1)}</span><strong>{name}</strong><small>匿名用户 {String(1000+i*137)}</small><em>{count} 次</em></div>)}</section>
+      <SectionTitle part="Part 3" title="💬 具体对话列表" />
+      <section className="chat-list">{chats.map(([q,n,t])=><article key={q}><div><Bot/></div><strong>{q}</strong><span>{n}</span><em>{t}</em><small>Tokens：—</small></article>)}</section>
+      <SectionTitle part="Part 4" title="✏️ 今日纠错" />
+      <section className="correction"><div><strong>周明远</strong><span>补充</span><small>2026‑09‑03</small></div><label>原问题</label><p>这组数据中是否包含所有业务分类？我需要确认统计口径。</p><label>纠错内容</label><p>建议先核对分类映射表与当前日期分区，再按脱敏字段聚合计算。</p></section>
     </section>
   </main>;
 }
+
+function SectionTitle({part,title}:{part:string;title:string}) { return <div className="section-title"><span>{part}</span><BarChart3/><h2>{title}</h2></div> }
+function Metric({icon,title,en,value,suffix,note,color}:{icon:React.ReactNode;title:string;en:string;value:string;suffix?:string;note:string;color:string}) { return <article className="metric"><i className="help">?</i><div className="metric-head" style={{color}}>{icon}<span><strong>{title}</strong><small>{en}</small></span></div><div className="metric-body"><div><b style={{color}}>{value}</b>{suffix&&<em>{suffix}</em>}<p>{note}</p></div><MiniChart color={color}/></div></article> }
