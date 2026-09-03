@@ -1,5 +1,5 @@
-# AI Service Insights Dashboard
+# 数据员工看板
 
-脱敏的 AI 服务 Session 分析与质量洞察看板。
+面向公开展示的数据员工能力图谱与建设进展看板。
 
 **[GitHub Pages 在线展示](https://jingxinyue6-sys.github.io/ai-service-insights-dashboard/)**
