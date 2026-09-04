@@ -1,0 +1,333 @@
+:root {
+  --bg: #f2f6fa;
+  --line: #dce5ef;
+}
+
+body {
+  background: radial-gradient(circle at 88% 0, #f8fbff 0, transparent 32%), var(--bg);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, "PingFang SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+svg[data-lucide] {
+  width: 19px;
+  height: 19px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rail {
+  box-shadow: 1px 0 0 rgba(31, 53, 82, .02);
+}
+
+.avatar {
+  overflow: hidden;
+  padding: 0;
+  background: #fff;
+  border: 2px solid #cce0ff;
+  box-shadow: 0 2px 8px rgba(47, 111, 237, .12);
+}
+
+.avatar img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+  transform: scale(1.18);
+}
+
+.rail > .avatar {
+  width: 48px;
+  height: 48px;
+}
+
+.rail a {
+  font-size: inherit;
+  transition: color .16s ease, background .16s ease;
+}
+
+.rail a svg {
+  width: 22px;
+  height: 22px;
+}
+
+.rail a:hover {
+  color: #3975e9;
+  background: #f7faff;
+}
+
+.page {
+  padding: 20px clamp(24px, 2.8vw, 42px) 52px;
+}
+
+.head {
+  margin-bottom: 17px;
+}
+
+.head > .avatar {
+  width: 48px;
+  height: 48px;
+  margin: 0;
+}
+
+.head h1 {
+  letter-spacing: -.02em;
+}
+
+.head > small {
+  color: #93a1b5;
+  white-space: nowrap;
+}
+
+.head-icon {
+  background: color-mix(in srgb, currentColor 7%, white);
+  border-color: color-mix(in srgb, currentColor 28%, white);
+}
+
+.live {
+  padding: 7px 12px;
+  border: 1px solid #bdeecf;
+  border-radius: 999px;
+  background: #effff5;
+}
+
+.page:not(#map) .live {
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+}
+
+.head .btn + small,
+.head .btn ~ small {
+  margin-left: 0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  transition: border-color .16s ease, box-shadow .16s ease, transform .16s ease;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn:hover {
+  border-color: #b9c8da;
+  box-shadow: 0 3px 9px rgba(39, 61, 89, .08);
+  transform: translateY(-1px);
+}
+
+.card {
+  border-color: #dce5ef;
+  box-shadow: 0 3px 12px rgba(45, 68, 99, .07);
+}
+
+.part {
+  gap: 9px;
+}
+
+.part .part-icon {
+  width: 17px;
+  height: 17px;
+  color: #2f6fed;
+}
+
+.grid2 {
+  grid-template-columns: minmax(0, 2.25fr) minmax(360px, 1fr);
+  gap: 28px;
+}
+
+.intro {
+  padding: 31px 34px 28px;
+}
+
+.intro p {
+  max-width: 1020px;
+  font-size: 14px;
+  line-height: 2.05;
+}
+
+.meta strong {
+  color: #2f6fed;
+  font-size: 18px;
+}
+
+.meta > div:last-child strong {
+  color: #793df1;
+}
+
+.ability {
+  padding: 26px 32px 28px;
+}
+
+.ability .section-title:before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237c3ff2' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m13 2-9 12h8l-1 8 9-12h-8z'/%3E%3C/svg%3E");
+}
+
+.ability-row {
+  min-height: 47px;
+  padding: 9px 14px;
+  background: linear-gradient(90deg, #fff, #fbfcfe);
+}
+
+.ability-row .ico {
+  display: grid;
+  place-items: center;
+}
+
+.ability-row .ico svg {
+  width: 17px;
+  height: 17px;
+}
+
+.ability-row:nth-child(4) .ico,
+.ability-row:nth-child(5) .ico { color: #0aa7c4; }
+.ability-row:nth-child(6) .ico { color: #ec651f; }
+.ability-row:nth-child(n+7) .ico { color: #7e91aa; }
+
+.radar-card {
+  min-height: 588px;
+  padding: 28px 25px;
+}
+
+.radar-card .section-title {
+  margin-top: 14px;
+}
+
+.radar-card .section-title:before {
+  width: 18px;
+  height: 18px;
+  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f6fed' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 12h4l2-8 4 16 2-8h6'/%3E%3C/svg%3E");
+}
+
+.radar {
+  max-height: 460px;
+}
+
+.metric {
+  min-height: 170px;
+  padding: 22px 24px;
+}
+
+.metric-ico {
+  background: color-mix(in srgb, currentColor 7%, white);
+  border-color: color-mix(in srgb, currentColor 32%, white);
+}
+
+.observe-body {
+  grid-template-columns: minmax(310px, 420px) minmax(0, 1fr);
+}
+
+.cat-head > span {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid color-mix(in srgb, currentColor 28%, white);
+  border-radius: 9px;
+  background: color-mix(in srgb, currentColor 6%, white);
+}
+
+.task-table td:nth-child(2) {
+  color: #263349;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+.doc-total {
+  min-height: 407px;
+}
+
+.doc-total .book,
+.knowledge-type .kico {
+  background: color-mix(in srgb, currentColor 7%, white);
+  border-color: color-mix(in srgb, currentColor 26%, white);
+}
+
+.knowledge-type {
+  min-height: 82px;
+}
+
+.knowledge-type > span:last-child {
+  color: #9aabc0;
+  font-size: 25px;
+}
+
+.review-head strong {
+  font-size: 14px;
+}
+
+.review h3 {
+  font-size: 12px;
+}
+
+.qa {
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.9);
+}
+
+.session-card,
+.week-card,
+.check {
+  transition: transform .16s ease, box-shadow .16s ease;
+}
+
+.session-card:hover,
+.week-card:hover,
+.check:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(42, 65, 95, .1);
+}
+
+.rank-row,
+.chat-row {
+  min-height: 57px;
+}
+
+.rank-row em,
+.chat-row em {
+  color: #6c7b91;
+  font-style: normal;
+  font-size: 11px;
+}
+
+.rank-row small,
+.chat-row small {
+  color: #94a1b3;
+}
+
+.monitor-summary {
+  border-left: 4px solid #1eb56e;
+}
+
+.report {
+  max-width: 1180px;
+}
+
+@media (max-width: 1180px) {
+  .grid2,
+  .observe-body,
+  .knowledge-top { grid-template-columns: 1fr; }
+  .radar-card { min-height: auto; }
+  .radar { max-height: 520px; }
+}
+
+@media (max-width: 680px) {
+  .page { padding: 14px 12px 36px; }
+  .head { gap: 10px; }
+  .head > .avatar { width: 40px; height: 40px; }
+  .live { padding: 6px 8px; }
+  .intro, .ability, .review { padding: 20px 18px; }
+  .ability-row { grid-template-columns: 26px 39px 72px minmax(0,1fr); }
+  .knowledge-type { padding: 15px; }
+  .review-head { align-items: flex-start; gap: 14px; }
+  .review-head .actions { flex-wrap: wrap; }
+}
